@@ -77,7 +77,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getTodo",
+          "name" : "getEmployee",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -95,20 +95,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listTodos",
+          "name" : "listEmployees",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoFilterInput",
+              "name" : "ModelEmployeeFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -133,7 +133,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelTodoConnection",
+            "name" : "ModelEmployeeConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -751,7 +751,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Todo",
+        "name" : "Employee",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -850,7 +850,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelTodoConnection",
+        "name" : "ModelEmployeeConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -861,7 +861,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Todo",
+              "name" : "Employee",
               "ofType" : null
             }
           },
@@ -885,7 +885,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelTodoFilterInput",
+        "name" : "ModelEmployeeFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -923,7 +923,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoFilterInput",
+              "name" : "ModelEmployeeFilterInput",
               "ofType" : null
             }
           },
@@ -936,7 +936,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoFilterInput",
+              "name" : "ModelEmployeeFilterInput",
               "ofType" : null
             }
           },
@@ -946,7 +946,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelTodoFilterInput",
+            "name" : "ModelEmployeeFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1058,7 +1058,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createTodo",
+          "name" : "createEmployee",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1068,7 +1068,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateTodoInput",
+                "name" : "CreateEmployeeInput",
                 "ofType" : null
               }
             },
@@ -1078,20 +1078,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoConditionInput",
+              "name" : "ModelEmployeeConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateTodo",
+          "name" : "updateEmployee",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1101,7 +1101,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateTodoInput",
+                "name" : "UpdateEmployeeInput",
                 "ofType" : null
               }
             },
@@ -1111,20 +1111,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoConditionInput",
+              "name" : "ModelEmployeeConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteTodo",
+          "name" : "deleteEmployee",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1134,7 +1134,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteTodoInput",
+                "name" : "DeleteEmployeeInput",
                 "ofType" : null
               }
             },
@@ -1144,14 +1144,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoConditionInput",
+              "name" : "ModelEmployeeConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1296,7 +1296,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateTodoInput",
+        "name" : "CreateEmployeeInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1340,7 +1340,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelTodoConditionInput",
+        "name" : "ModelEmployeeConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1369,7 +1369,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoConditionInput",
+              "name" : "ModelEmployeeConditionInput",
               "ofType" : null
             }
           },
@@ -1382,7 +1382,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTodoConditionInput",
+              "name" : "ModelEmployeeConditionInput",
               "ofType" : null
             }
           },
@@ -1392,7 +1392,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelTodoConditionInput",
+            "name" : "ModelEmployeeConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1402,7 +1402,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateTodoInput",
+        "name" : "UpdateEmployeeInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1442,7 +1442,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteTodoInput",
+        "name" : "DeleteEmployeeInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1496,34 +1496,34 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateTodo",
+          "name" : "onCreateEmployee",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateTodo",
+          "name" : "onUpdateEmployee",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteTodo",
+          "name" : "onDeleteEmployee",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Todo",
+            "name" : "Employee",
             "ofType" : null
           },
           "isDeprecated" : false,

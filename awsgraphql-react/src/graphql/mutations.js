@@ -40,12 +40,12 @@ export const deleteSkill = /* GraphQL */ `
     }
   }
 `;
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createEmployee = /* GraphQL */ `
+  mutation CreateEmployee(
+    $input: CreateEmployeeInput!
+    $condition: ModelEmployeeConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createEmployee(input: $input, condition: $condition) {
       id
       firstname
       lastname
@@ -60,12 +60,12 @@ export const createTodo = /* GraphQL */ `
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateEmployee = /* GraphQL */ `
+  mutation UpdateEmployee(
+    $input: UpdateEmployeeInput!
+    $condition: ModelEmployeeConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateEmployee(input: $input, condition: $condition) {
       id
       firstname
       lastname
@@ -80,12 +80,12 @@ export const updateTodo = /* GraphQL */ `
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteEmployee = /* GraphQL */ `
+  mutation DeleteEmployee(
+    $input: DeleteEmployeeInput!
+    $condition: ModelEmployeeConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteEmployee(input: $input, condition: $condition) {
       id
       firstname
       lastname
