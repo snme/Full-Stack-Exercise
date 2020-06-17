@@ -13,4 +13,3 @@ Skill {
   name: string
 }
 ```
-s
