@@ -1,6 +1,6 @@
 {
 	"api": {
-		"exercise": {
+		"fullstackexercise": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
@@ -9,7 +9,7 @@
 					"defaultAuthentication": {
 						"authenticationType": "API_KEY",
 						"apiKeyConfig": {
-							"description": "exerciseb",
+							"description": "exercise",
 							"apiKeyExpirationDays": "365"
 						}
 					}
