@@ -7,7 +7,7 @@ import { listSkills } from './graphql/queries';
 
 class DeleteSkill extends Component {
     elementID = this.props.id;
-    
+
     handleDelete = (deleteSkill) => {
         deleteSkill({
             variables: {
@@ -26,8 +26,6 @@ class DeleteSkill extends Component {
                 }
             }),
             update: (cache, { data: { deleteSkill } }) => {
-                console.log("updating");
-                console.log(this.props.id);
                 const query = gql(listSkills);
 
                 // Read query from cache
@@ -38,6 +36,7 @@ class DeleteSkill extends Component {
                     ...data.listSkills.items.filter(item =>
                      item.id !== this.elementID)
                 ];
+                console.log("hello");
                 console.log(data);
 
 
