@@ -12,6 +12,8 @@ class SkillsPage extends Component {
   render() {
     return (
       <div className="SkillsPage">
+        <h3>Add, Update, and Delete Skills!</h3>
+        hey yall? what's brackin
         <CreateSkill />
         <DisplaySkills />
       </div>

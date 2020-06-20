@@ -24,18 +24,16 @@ class EditSkill extends React.Component {
         }
       }
     }).then(res => this.handleModal());
-    console.log("submitting");
   };  
 
   handleModal = () => {
-    console.log("closing now!!!!!!!!");
+    console.log("Successfully Submitted.");
   };
 
   handleName = e => {
     this.setState({
       skillData: { name: e.target.value }
     });
-    console.log(this.state.skillData.name);
   };
 
   componentDidMount() {
@@ -60,8 +58,6 @@ class EditSkill extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
-
-  console.log(this.customID);
   }
 
   render() {
@@ -71,7 +67,7 @@ class EditSkill extends React.Component {
           className="waves-effect waves-light btn modal-trigger"
           data-target={this.customID}
         >
-          Modal
+          Update
         </a>
 
         <div
@@ -101,15 +97,19 @@ class EditSkill extends React.Component {
                       value={this.state.skillData.name}
                       onChange={this.handleName}
                     />
+                    <div className="modal-footer">
             <button type="submit" className="modal-close waves-effect waves-red btn-flat">
-              Agree
+              Submit
             </button>
+            <a className="modal-close waves-effect waves-red btn-flat">
+              Cancel
+            </a>
+          </div>
+            
                   </form>
                 );
               }}
             </Mutation>
-                    <div className="modal-footer">
-          </div>
           </div>
         </div>
       </div>

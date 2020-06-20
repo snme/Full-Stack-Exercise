@@ -1,5 +1,6 @@
 import React from 'react';
 import EditSkill from './editSkill';
+import DeleteSkill from './deleteSkill';
 import Modal from './Modal';
 
 
@@ -19,10 +20,12 @@ class Skill extends React.Component {
       return (
         <div>
           <h4>{skill.name}</h4>
+          <h4>{skill.id}</h4>
           <time dateTime={skill.createdAt}>
           {new Date(skill.createdAt).toDateString()}</time>
           <br />
           <EditSkill {...skill} />
+          <DeleteSkill {...skill} />
         </div>
       )
     })

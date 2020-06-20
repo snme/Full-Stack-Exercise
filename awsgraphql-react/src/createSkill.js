@@ -15,15 +15,11 @@ class CreateSkill extends React.Component {
     }).then(res => {
       this.skill.value = "";
     });
-    
-    console.log('asdf');
   };
   render() {
     return (
 
       <div className="row">
-        <h3>Add, Update, and Delete Skills!</h3>
-        hey yall? what's brackin
         <Mutation mutation={gql(createSkill)}>
           {(createSkill, { data, loading, error }) => {
             return (
