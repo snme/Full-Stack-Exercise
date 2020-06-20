@@ -25,11 +25,6 @@ class Modal extends Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
-
-    // let instance = M.Modal.getInstance(this.Modal);
-    // instance.open();
-    // instance.close();
-    // instance.destroy();
   }
 
   render() {
@@ -53,7 +48,8 @@ class Modal extends Component {
                         bottom-sheet class to the "modal" div
                         If you want Fixed Footer Modal then add
                         modal-fixed-footer to the "modal" div*/}
-          <div className="modal-content">
+          
+          <div className="modal-content blue-text">
             <h4>Modal Header</h4>
             <p>A bunch of text</p>
           </div>
