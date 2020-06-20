@@ -6,15 +6,46 @@ import { listSkills } from './graphql/queries';
 
 
 class DeleteSkill extends Component {
-
+    elementID = this.props.id;
+    
     handleDelete = (deleteSkill) => {
         deleteSkill({
             variables: {
                 input: {
                     id: this.props.id
                 }
-            }}).then(res => {console.log("done")});
-    };
+            },
+            optimisticResponse: () => ({
+                deleteSkill: {
+                    // This type must match the return type of
+                    //the query below (listSkills)
+                    __typename: 'ModelPostConnection',
+                    id: this.props.id,
+                    name: this.props.name,
+                    createdAt: this.props.createdAt
+                }
+            }),
+            update: (cache, { data: { deleteSkill } }) => {
+                console.log("updating");
+                console.log(this.props.id);
+                const query = gql(listSkills);
+
+                // Read query from cache
+                const data = cache.readQuery({ query });
+
+                // Add updated postsList to the cache copy
+                data.listSkills.items = [
+                    ...data.listSkills.items.filter(item =>
+                     item.id !== this.elementID)
+                ];
+                console.log(data);
+
+
+                //Overwrite the cache with the new results
+                cache.writeQuery({ query, data });
+            }
+        })
+    }
 
     render() {
         return (
