@@ -1,7 +1,7 @@
 import React from 'react'
 import { Query } from "react-apollo";
-import { listSkills } from './graphql/queries';
-import { onCreateSkill } from './graphql/subscriptions'
+import { listSkills } from '../graphql/queries';
+import { onCreateSkill } from '../graphql/subscriptions'
 import gql from 'graphql-tag';
 import Skill from './skill'
 

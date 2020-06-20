@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo';
-import { deleteSkill } from './graphql/mutations';
+import { deleteSkill } from '../graphql/mutations';
 import gql from 'graphql-tag';
-import { listSkills } from './graphql/queries';
+import { listSkills } from '../graphql/queries';
 
 
 class DeleteSkill extends Component {

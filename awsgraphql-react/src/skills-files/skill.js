@@ -1,7 +1,6 @@
 import React from 'react';
 import EditSkill from './editSkill';
 import DeleteSkill from './deleteSkill';
-import Modal from './Modal';
 
 
 

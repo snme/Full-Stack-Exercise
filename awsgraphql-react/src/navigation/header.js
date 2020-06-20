@@ -1,9 +1,8 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import { createSkill } from "./graphql/mutations";
+import { createSkill } from "../graphql/mutations";
 import gql from "graphql-tag";
-import Modal from './Modal';
-import image from "./images/arrows.png"
+import image from "../images/arrows.png"
 /*
 
     <div class="col s1">

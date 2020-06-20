@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import CreateSkill from './createSkill';
-import DisplaySkills from './displaySkill';
-import logo from './logo.svg';
+import CreateSkill from './skills-files/createSkill';
+import DisplaySkills from './skills-files/displaySkill';
 import './css/App.css';
-import { useState } from 'react';
-import Header from './header';
-import Footer from './footer';
 
 
 class SkillsPage extends Component {

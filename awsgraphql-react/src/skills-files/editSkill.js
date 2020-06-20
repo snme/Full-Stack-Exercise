@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 
-import { updateSkill } from "./graphql/mutations";
+import { updateSkill } from "../graphql/mutations";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
