@@ -16,18 +16,17 @@ class Header extends React.Component {
     return (
 
       <div className="row">
-      <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo right"> <img src={image} height="60px" /> </a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-      </ul>
-    </div>
-  </nav>
-      
-      </div> 
+        <nav>
+          <div className="nav-wrapper">
+            <a href="#" className="brand-logo center"> <img src={image} height="60px" /> </a>
+            <ul id="nav-mobile" className="left hide-on-med-and-down">
+              <li><a href="sass.html">Sass</a></li>
+              <li><a href="badges.html">Components</a></li>
+              <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     );
   }
 }

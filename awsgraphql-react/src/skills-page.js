@@ -6,20 +6,18 @@ import './css/App.css';
 import { useState } from 'react';
 import Header from './header';
 import Footer from './footer';
-import Main from './Main';
 
 
-class App extends Component {
+class SkillsPage extends Component {
   render() {
     return (
-      <div className="App">
-    	<Header />
-      	<Main />
-    	<Footer />	
+      <div className="SkillsPage">
+        <CreateSkill />
+        <DisplaySkills />
       </div>
     );
   }
 }
 
-export default App;
+export default SkillsPage;
 

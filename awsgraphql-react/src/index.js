@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import aws_config from './aws-exports';
 import { ApolloProvider } from 'react-apollo';
-import Header from './header';
+import { BrowserRouter } from 'react-router-dom';
 
 /*ReactDOM.render(
   <React.StrictMode>
@@ -33,8 +33,9 @@ const client = new AWSAppSyncClient({
 // });
 
 ReactDOM.render(<ApolloProvider client={client}>
-    <Header />
+    <BrowserRouter>
     <App />
+    </BrowserRouter>
 </ApolloProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
