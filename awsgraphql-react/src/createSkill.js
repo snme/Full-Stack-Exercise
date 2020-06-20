@@ -22,8 +22,8 @@ class CreateSkill extends React.Component {
     return (
 
       <div className="row">
-        <h5>Create Skill</h5>
-
+        <h3>Add, Update, and Delete Skills!</h3>
+        hey yall? what's brackin
         <Mutation mutation={gql(createSkill)}>
           {(createSkill, { data, loading, error }) => {
             return (
@@ -33,12 +33,14 @@ class CreateSkill extends React.Component {
                   className="col s12"
                   onSubmit={e => this.handleSubmit(e, createSkill)}
                 >
+                  <div >
                   <input
                     id="skillEntry" className="input-field col s6" 
                     type="text" placeholder="Title"
                     ref={node => (this.skill = node)}
                     required
                   />
+                  </div>
                   <br/>
 
 

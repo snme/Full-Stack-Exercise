@@ -1,23 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
+import M from "materialize-css";
+import "materialize-css/dist/css/materialize.min.css";
+
 import { updateSkill } from "./graphql/mutations";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
 class EditSkill extends React.Component {
-	state = {
-    show: true,
-    postData: {
+  customID = "modal1 " + this.props.id;
+  state = {
+    skillData: {
       name: this.props.name,
     }
-  };
-
-  handleModal = () => {
-    this.setState({ show: !this.state.show });
-    console.log("modal");
-    console.log(this.state.postData.name);
-    console.log(this);
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
   };
 
   handleSubmit = (e, updateSkill) => {
@@ -26,26 +20,74 @@ class EditSkill extends React.Component {
       variables: {
         input: {
           id: this.props.id,
-      	name: this.props.name
+        name: this.state.skillData.name
         }
       }
     }).then(res => this.handleModal());
+    console.log("submitting");
+  };  
+
+  handleModal = () => {
+    console.log("closing now!!!!!!!!");
   };
 
   handleName = e => {
     this.setState({
-      postData: { ...this.state.postData, name: e.target.value }
+      skillData: { name: e.target.value }
     });
+    console.log(this.state.skillData.name);
   };
+
+  componentDidMount() {
+    const options = {
+      onOpenStart: () => {
+        console.log("Open Start");
+      },
+      onOpenEnd: () => {
+        console.log("Open End");
+      },
+      onCloseStart: () => {
+        console.log("Close Start");
+      },
+      onCloseEnd: () => {
+        console.log("Close End");
+      },
+      inDuration: 250,
+      outDuration: 250,
+      opacity: 0.5,
+      dismissible: true,
+      startingTop: "4%",
+      endingTop: "10%"
+    };
+    M.Modal.init(this.Modal, options);
+
+  console.log(this.customID);
+  }
 
   render() {
     return (
-      <>
-        {this.state.show && (
-          <div className="modal">
-            <button className="waves-effect waves-light btn modal-trigger" onClick={this.handleModal}>
-              X
-            </button>
+      <div>
+        <a
+          className="waves-effect waves-light btn modal-trigger"
+          data-target={this.customID}
+        >
+          Modal
+        </a>
+
+        <div
+          ref={Modal => {
+            this.Modal = Modal;
+          }}
+          id={this.customID}
+          className="modal"
+        >
+          {/* If you want Bottom Sheet Modal then add 
+                        bottom-sheet class to the "modal" div
+                        If you want Fixed Footer Modal then add
+                        modal-fixed-footer to the "modal" div*/}
+          
+          <div className="modal-content blue-text">
+            <h4>Modal Header</h4>
             <Mutation mutation={gql(updateSkill)}>
               {updateSkill => {
                 return (
@@ -56,18 +98,21 @@ class EditSkill extends React.Component {
                     <input
                       type="text"
                       required
-                      value={this.state.postData.name}
+                      value={this.state.skillData.name}
                       onChange={this.handleName}
                     />
-                    <button className="waves-effect waves-light btn">Update Post</button>
+            <button type="submit" className="modal-close waves-effect waves-red btn-flat">
+              Agree
+            </button>
                   </form>
                 );
               }}
             </Mutation>
+                    <div className="modal-footer">
           </div>
-        )}
-        <button onClick={this.handleModal}>Edit</button>
-      </>
+          </div>
+        </div>
+      </div>
     );
   }
 }
