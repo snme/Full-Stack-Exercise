@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 
 function myFunction() {
   console.log(document.getElementById("myDropdown"));
-    document.getElementById("myDropdown").style.display = 'block';
+    document.getElementById("myDropdown").toggleClass("show");
     console.log("func");
   }
 

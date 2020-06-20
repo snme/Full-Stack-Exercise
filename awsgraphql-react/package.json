@@ -16,6 +16,7 @@
     "graphql": "^0.11.7",
     "graphql-tag": "^2.10.3",
     "install-peers": "^1.0.3",
+    "materialize-css": "^1.0.0",
     "react": "^16.13.1",
     "react-apollo": "^2.5.7",
     "react-dom": "^16.13.1",
