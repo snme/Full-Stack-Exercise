@@ -7,6 +7,8 @@ const Main = () => {
   return (
     <Switch> {/* The Switch decides which component to show based on the current URL.*/}
       <Route exact path='/' component={SkillsPage}></Route>
+      <Route exact path='/employees' component={SkillsPage}></Route>
+      <Route exact path='/skills' component={SkillsPage}></Route>
     </Switch>
   );
 }
