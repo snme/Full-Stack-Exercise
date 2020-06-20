@@ -42,7 +42,6 @@ class CreateSkill extends React.Component {
                   <br/>
 
 
-            <h1>{console.log("here")}</h1>
                   <button className="waves-effect waves-light btn">{loading ? "Adding..." : "Create Skill"}
                   </button>
                 </form>

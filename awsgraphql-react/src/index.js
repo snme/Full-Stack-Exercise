@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import aws_config from './aws-exports';
 import { ApolloProvider } from 'react-apollo';
+import Header from './header';
 
 /*ReactDOM.render(
   <React.StrictMode>
@@ -32,6 +33,7 @@ const client = new AWSAppSyncClient({
 // });
 
 ReactDOM.render(<ApolloProvider client={client}>
+    <Header />
     <App />
 </ApolloProvider>, document.getElementById('root'));
 

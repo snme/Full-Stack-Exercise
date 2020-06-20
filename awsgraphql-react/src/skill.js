@@ -1,6 +1,6 @@
 import React from 'react';
-//import EditSkill from './editSkill'
-//<EditSkill {...skill} />
+import EditSkill from './editSkill'
+
 
 
 class Skill extends React.Component {
@@ -21,6 +21,7 @@ class Skill extends React.Component {
           <time dateTime={skill.createdAt}>
           {new Date(skill.createdAt).toDateString()}</time>
           <br />
+          <EditSkill {...skill} />
         </div>
       )
     })

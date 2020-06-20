@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 
 class EditSkill extends React.Component {
 	state = {
-    show: false,
+    show: true,
     postData: {
       name: this.props.name,
     }
@@ -13,6 +13,9 @@ class EditSkill extends React.Component {
 
   handleModal = () => {
     this.setState({ show: !this.state.show });
+    console.log("modal");
+    console.log(this.state.postData.name);
+    console.log(this);
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   };
