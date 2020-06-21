@@ -29,19 +29,20 @@ class CreateSkill extends React.Component {
                   className="col s12"
                   onSubmit={e => this.handleSubmit(e, createSkill)}
                 >
-                  <div >
+                  <div className="col s12">
                   <input
-                    id="skillEntry" className="input-field col s6" 
-                    type="text" placeholder="Title"
+                    id="skillEntry" className="input-field col s4" 
+                    type="text" placeholder="Type new skill"
                     ref={node => (this.skill = node)}
                     required
                   />
-                  </div>
                   <br/>
 
 
                   <button className="waves-effect waves-light btn">{loading ? "Adding..." : "Create Skill"}
                   </button>
+
+                  </div>
                 </form>
                 {error && <p>{error.message}</p>}
               </div>
