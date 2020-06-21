@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import { listEmployees } from '../graphql/queries';
 import { listSkills } from '../graphql/queries';
 import { listSkillsAndEmployees } from '../graphql/queries';
+import { testThis } from '../graphql/queries';
 import { onCreateEmployee } from '../graphql/subscriptions'
 import gql from 'graphql-tag';
 import Employee from './employee';
@@ -62,6 +63,20 @@ class DisplayEmployee extends React.Component {
                 this.subscribeToNewEmployees(subscribeToMore)} />
           }}
         </Query>
+
+
+            <Query query={gql(testThis)}  >
+
+              {({loading, data, error, subscribeToMore }) => {
+
+                if (loading) return <p>loading...</p>
+                if (error) return <p>{error.message}</p>
+                console.log(data);
+
+                return <h1>i tried</h1>
+              }}
+            </Query>
+            
       </div>
     )
   }

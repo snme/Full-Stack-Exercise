@@ -40,24 +40,6 @@ export const listSkills = /* GraphQL */ `
   }
 `;
 
-export const getSkills = /* GraphQL */ `
-query GetSkills($id: ID!){
-  getEmployee($id: ID!){
-    firstname
-    lastname
-    skills{
-      items{
-        skill {
-          id
-          name
-        }
-      }
-    }
-  }
-}
-`;
-
-
 export const getEmployee = /* GraphQL */ `
   query GetEmployee($id: ID!) {
     getEmployee(id: $id) {
@@ -80,6 +62,24 @@ export const getEmployee = /* GraphQL */ `
       updatedAt
     }
   }
+`;
+
+export const testThis = `
+query GetSkills{
+  getEmployee(id: "6aef1d48-3e0d-4b05-88b9-c1c72d70fb0e"){
+    id
+    firstname 
+    lastname
+    skills{
+      items{
+        skill {
+          id
+          name
+        }
+      }
+    }
+  }
+}
 `;
 
 export const listEmployees = /* GraphQL */ `

@@ -11,8 +11,8 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { listSkills } from '../graphql/queries';
 import { listEmployees } from '../graphql/queries';
+import { testThis } from '../graphql/queries';
 import { getEmployee } from '../graphql/queries';
-import { getSkills } from '../graphql/queries';
 
 import { withApollo } from 'react-apollo';
 
@@ -30,77 +30,6 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 
 
-
-
-function CheckboxLabels(data) {
-  console.log(data);
-
-  const [astate, asetState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedF: true,
-  });
-
-
-  const handleChange = (event) => {
-    asetState({ ...astate, [event.target.name]: event.target.checked });
-    console.log(astate);
-  };
-
-  return (
-    <FormGroup row>
-      <FormControlLabel
-        control={<Checkbox checked={astate.checkedA} onChange={handleChange} name="checkedA" />}
-        label="Secondary"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={astate.checkedB}
-            onChange={handleChange}
-            name="checkedB"
-            color="primary"
-          />
-        }
-        label="Primary"
-      />
-      <FormControlLabel control={<Checkbox name="checkedC" />} label="Uncontrolled" />
-      <FormControlLabel disabled control={<Checkbox name="checkedD" />} label="Disabled" />
-      <FormControlLabel disabled control={<Checkbox checked name="checkedE" />} label="Disabled" />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={astate.checkedF}
-            onChange={handleChange}
-            name="checkedF"
-            indeterminate
-          />
-        }
-        label="Indeterminate"
-      />
-      <FormControlLabel
-        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
-        label="Custom icon"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-            checkedIcon={<CheckBoxIcon fontSize="small" />}
-            name="checkedI"
-          />
-        }
-        label="Custom size"
-      />
-    </FormGroup>
-  );
-}
-
-
-
-
-
-
 class EditEmployee extends React.Component {
   customID = this.props.id;
 
@@ -109,9 +38,6 @@ class EditEmployee extends React.Component {
       firstname: this.props.firstname,
       lastname: this.props.lastname,
     },
-    checkedA: true, 
-    checkedB: true,
-    checkedF: true,
     checkboxes: []
   };
 
@@ -137,8 +63,8 @@ class EditEmployee extends React.Component {
     createEmployeeSkills({
       variables: {
         input: {
-          employeeSkillsSkillId: "65ec6848-211d-4252-80d5-31de66ee82c2",
-          employeeSkillsEmployeeId: "2c5dd6f3-cba9-4881-8c9b-366d90cd54d3",
+          employeeSkillsSkillId: "6fd56660-4105-47a8-9d37-96f00eab7cb0",
+          employeeSkillsEmployeeId: "7d84825f-9746-41b2-9a6b-0dd3071298d1",
         }
       }
     }).then(res => console.log(res));
@@ -208,14 +134,13 @@ class EditEmployee extends React.Component {
 
 
     const resEmployees = await client.query({ query: gql(getEmployee), variables: {id: this.customID} });
-    //const getskills = await client.query({ query: gql(getSkills), variables: {id: this.customID} });
-    //console.log(getSkills);
+    const custom = await client.query({ query: gql(testThis)});
+    console.log(await custom);
 
     console.log(this.state.employeeData.firstname);
     console.log(this.customID);
-    console.log(resSkills.data.listSkills.items);
-    console.log(resEmployees);
-    console.log(resEmployees.data.getEmployee.skills.items[0]);
+    console.log(await resEmployees);
+    console.log(await resEmployees.data.getEmployee.skills.items[0]);
     //resSkills.data.listSkills.items
     let items = resSkills.data.listSkills.items;
     let empSkills = resEmployees.data.getEmployee.skills.items;
@@ -264,6 +189,8 @@ class EditEmployee extends React.Component {
           
           <div className="modal-content blue-text">
             <h4>Modal Header</h4>
+
+
             <Mutation mutation={gql(updateEmployee)}>
               {updateEmployee => {
                 return (
