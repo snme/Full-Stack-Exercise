@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CreateSkill from './skills-files/createSkill';
 import DisplaySkills from './skills-files/displaySkill';
 import './css/App.css';
+import MaterialTableDemo from './test-table';
 
 
 class SkillsPage extends Component {
@@ -12,6 +13,7 @@ class SkillsPage extends Component {
         hey yall? what's brackin
         <CreateSkill />
         <DisplaySkills />
+        <MaterialTableDemo />
       </div>
     );
   }
