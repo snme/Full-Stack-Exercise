@@ -7,6 +7,7 @@ import { listSkills } from '../graphql/queries';
 
 class DeleteSkill extends Component {
     elementID = this.props.id;
+    elementName = this.props.name;
 
     handleDelete = (deleteSkill) => {
         deleteSkill({
@@ -36,6 +37,7 @@ class DeleteSkill extends Component {
                     ...data.listSkills.items.filter(item =>
                      item.id !== this.elementID)
                 ];
+                //item.id !== this.elementID && item.name != this.elementName)
                 console.log("hello");
                 console.log(data);
 

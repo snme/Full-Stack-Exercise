@@ -30,6 +30,18 @@ class Skill extends React.Component {
   },
 }));
 
+    /*var newarr = (function(arr){
+      var m = {}, newarr = []
+      for (var i=0; i<items.length; i++) {
+        var v = items[i];
+        if (!m[v.name]) {
+          newarr.push(v);
+          m[v.name]=true;
+        }
+      }
+      return newarr;
+    })(items);
+    return newarr.map((skill) => {*/
     return items.map((skill) => {
       return (
         <div style={{ padding: 20}}>
