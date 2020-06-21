@@ -1,40 +1,41 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo';
-import { deleteSkill } from '../graphql/mutations';
+import { deleteEmployee } from '../graphql/mutations';
 import gql from 'graphql-tag';
-import { listSkills } from '../graphql/queries';
+import { listEmployees } from '../graphql/queries';
 
 
-class DeleteSkill extends Component {
+class DeleteEmployee extends Component {
     elementID = this.props.id;
-    elementName = this.props.name;
+    //elementName = this.props.name;
 
-    handleDelete = (deleteSkill) => {
-        deleteSkill({
+    handleDelete = (deleteEmployee) => {
+        deleteEmployee({
             variables: {
                 input: {
                     id: this.props.id
                 }
             },
             optimisticResponse: () => ({
-                deleteSkill: {
+                deleteEmployee: {
                     // This type must match the return type of
-                    //the query below (listSkills)
+                    //the query below (listEmployees)
                     __typename: 'ModelPostConnection',
                     id: this.props.id,
-                    name: this.props.name,
+                    firstname: this.props.name,
+                    lastname: this.props.name,
                     createdAt: this.props.createdAt
                 }
             }),
-            update: (cache, { data: { deleteSkill } }) => {
-                const query = gql(listSkills);
+            update: (cache, { data: { deleteEmployee } }) => {
+                const query = gql(listEmployees);
 
                 // Read query from cache
                 const data = cache.readQuery({ query });
 
                 // Add updated postsList to the cache copy
-                data.listSkills.items = [
-                    ...data.listSkills.items.filter(item =>
+                data.listEmployees.items = [
+                    ...data.listEmployees.items.filter(item =>
                      item.id !== this.elementID)
                 ];
                 //item.id !== this.elementID && item.name != this.elementName)
@@ -50,11 +51,11 @@ class DeleteSkill extends Component {
 
     render() {
         return (
-            <Mutation mutation={gql(deleteSkill)}>
-                {(deleteSkill, { loading, error }) => {
+            <Mutation mutation={gql(deleteEmployee)}>
+                {(deleteEmployee, { loading, error }) => {
                     return <button class="waves-effect waves-light btn modal-trigger" onClick={
-                       () => this.handleDelete(deleteSkill)}>
-                        {loading ? "Removing..." : "Delete Skill"}</button>
+                       () => this.handleDelete(deleteEmployee)}>
+                        {loading ? "Removing..." : "Delete Employee"}</button>
                 }}
             </Mutation>
         )
@@ -62,4 +63,4 @@ class DeleteSkill extends Component {
 }
 
 
-export default DeleteSkill;
+export default DeleteEmployee;

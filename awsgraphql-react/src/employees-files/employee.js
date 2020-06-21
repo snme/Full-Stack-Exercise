@@ -1,6 +1,6 @@
 import React from 'react';
-import EditSkill from './editSkill';
-import DeleteSkill from './deleteSkill';
+import EditEmployee from './editEmployee';
+import DeleteEmployee from './deleteEmployee';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 
-class Skill extends React.Component {
+class Employee extends React.Component {
 
   componentDidMount() {
     this.props.subscribeToMore();
@@ -18,7 +18,7 @@ class Skill extends React.Component {
 
   render() {
     console.log(this.props);
-    const items = this.props.data.listSkills.items;
+    const items = this.props.data.listEmployees.items;
     const classes = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -41,29 +41,29 @@ class Skill extends React.Component {
       }
       return newarr;
     })(items);
-    return newarr.map((skill) => {*/
-    return items.map((skill) => {
+    return newarr.map((employee) => {*/
+    return items.map((employee) => {
       return (
         <div style={{ padding: 20}}>
         <Grid container justify="center" spacing={5}>
   <Grid container item justify="center" xs={6} spacing={0}>
-  <Typography ><h5>{skill.name}</h5> </Typography>
+  <Typography ><h5>{employee.lastname}, {employee.firstname}</h5> </Typography>
     <div className="col s12"> 
     <h6>
-          Created on <time dateTime={skill.createdAt}>
-          {new Date(skill.createdAt).toDateString()}</time></h6>
+          Created on <time dateTime={employee.createdAt}>
+          {new Date(employee.createdAt).toDateString()}</time></h6>
     </div>
     
   </Grid>
   <Grid container item xs >
     <div className="col s12 "> </div>
 
-    <EditSkill {...skill} />
+    <EditEmployee {...employee} />
   </Grid>
   <Grid container item xs>
 
     <div className="col s12 "> </div>
-    <DeleteSkill {...skill} />
+    <DeleteEmployee {...employee} />
   </Grid>
 </Grid>
 
@@ -77,4 +77,4 @@ class Skill extends React.Component {
 }
 
 
-export default Skill;
+export default Employee;

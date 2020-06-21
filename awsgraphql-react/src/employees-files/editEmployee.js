@@ -1,26 +1,123 @@
 import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
+import Typography from '@material-ui/core/Typography';
 
-import { updateSkill } from "../graphql/mutations";
+import { updateEmployee } from "../graphql/mutations";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
-class EditSkill extends React.Component {
-  customID = "modal1 " + this.props.id;
-  state = {
-    skillData: {
-      name: this.props.name,
-    }
+import { Query } from "react-apollo";
+import { listSkills } from '../graphql/queries';
+
+//
+
+//checkboxes
+import { withStyles } from '@material-ui/core/styles';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+
+
+
+
+
+function CheckboxLabels(data) {
+  console.log(data);
+
+  const [astate, asetState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+    checkedF: true,
+  });
+
+
+  const handleChange = (event) => {
+    asetState({ ...astate, [event.target.name]: event.target.checked });
+    console.log(astate);
   };
 
-  handleSubmit = (e, updateSkill) => {
+  return (
+    <FormGroup row>
+      <FormControlLabel
+        control={<Checkbox checked={astate.checkedA} onChange={handleChange} name="checkedA" />}
+        label="Secondary"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={astate.checkedB}
+            onChange={handleChange}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Primary"
+      />
+      <FormControlLabel control={<Checkbox name="checkedC" />} label="Uncontrolled" />
+      <FormControlLabel disabled control={<Checkbox name="checkedD" />} label="Disabled" />
+      <FormControlLabel disabled control={<Checkbox checked name="checkedE" />} label="Disabled" />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={astate.checkedF}
+            onChange={handleChange}
+            name="checkedF"
+            indeterminate
+          />
+        }
+        label="Indeterminate"
+      />
+      <FormControlLabel
+        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
+        label="Custom icon"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+            checkedIcon={<CheckBoxIcon fontSize="small" />}
+            name="checkedI"
+          />
+        }
+        label="Custom size"
+      />
+    </FormGroup>
+  );
+}
+
+
+
+
+
+
+class EditEmployee extends React.Component {
+  customID = "modal1 " + this.props.id;
+
+  state = {
+    employeeData: {
+      firstname: this.props.firstname,
+      lastname: this.props.lastname,
+    },
+    checkedA: true, 
+    checkedB: true,
+    checkedF: true,
+  };
+
+  handleSubmit = (e, updateEmployee) => {
+
+    console.log("Successfully Submitted.");
     e.preventDefault();
-    updateSkill({
+    updateEmployee({
       variables: {
         input: {
           id: this.props.id,
-        name: this.state.skillData.name
+          firstname: this.state.employeeData.firstname,
+          lastname: this.state.employeeData.lastname
         }
       }
     }).then(res => this.handleModal());
@@ -30,10 +127,29 @@ class EditSkill extends React.Component {
     console.log("Successfully Submitted.");
   };
 
-  handleName = e => {
+  handleItems = (items) => {
+    let index = 0;
+    for (index = 0; index < items.length; index++) { 
+      this.setState({ ...this.state, [items[index].id]: true });
+    } 
+    //this.setState({ ...this.state, [id]: true });
+    console.log("here");
+  };
+
+  handleFirstName = e => {
     this.setState({
-      skillData: { name: e.target.value }
+      employeeData: { firstname: e.target.value }
     });
+  };
+  handleLastName = e => {
+    this.setState({
+      employeeData: { lastname: e.target.value }
+    });
+  };
+
+  checkboxHandleChange = (event) => {
+    this.setState({ ...this.state, [event.target.name]: event.target.checked });
+    console.log(this.state);
   };
 
   componentDidMount() {
@@ -60,9 +176,12 @@ class EditSkill extends React.Component {
     M.Modal.init(this.Modal, options);
   }
 
+
+
   render() {
     return (
       <div>
+
         <a
           className="waves-effect waves-light btn modal-trigger"
           data-target={this.customID}
@@ -84,18 +203,25 @@ class EditSkill extends React.Component {
           
           <div className="modal-content blue-text">
             <h4>Modal Header</h4>
-            <Mutation mutation={gql(updateSkill)}>
-              {updateSkill => {
+            <Mutation mutation={gql(updateEmployee)}>
+              {updateEmployee => {
                 return (
                   <form
-                    className="add-skill"
-                    onSubmit={e => this.handleSubmit(e, updateSkill)}
+                    className="add-employee"
+                    onSubmit={e => this.handleSubmit(e, updateEmployee)}
                   >
                     <input
                       type="text"
                       required
-                      value={this.state.skillData.name}
-                      onChange={this.handleName}
+                      value={this.state.employeeData.firstname}
+                      onChange={this.handleFirstName}
+                    />
+
+                    <input
+                      type="text"
+                      required
+                      value={this.state.employeeData.lastname}
+                      onChange={this.handleLastName}
                     />
                     <div className="modal-footer">
             <button type="submit" className="modal-close waves-effect waves-red btn-flat">
@@ -107,9 +233,101 @@ class EditSkill extends React.Component {
           </div>
             
                   </form>
+
+
+
                 );
               }}
             </Mutation>
+
+                <form
+                  className="add-employee"
+                  onSubmit={e => this.handleSubmit(e, updateEmployee)}
+                >
+
+                    <FormGroup row>
+      <FormControlLabel
+        control={<Checkbox checked={this.state.checkedA} onChange={this.checkboxHandleChange} name="checkedA" />}
+        label="Secondary"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={this.state.checkedB}
+            onChange={this.checkboxHandleChange}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Primary"
+      />
+      <FormControlLabel disabled control={<Checkbox name="checkedD" />} label="Disabled" />
+      <FormControlLabel disabled control={<Checkbox checked name="checkedE" />} label="Disabled" />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={this.state.checkedF}
+            onChange={this.checkboxHandleChange}
+            name="checkedF"
+            indeterminate
+          />
+        }
+        label="Indeterminate"
+      />
+      <FormControlLabel
+        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
+        label="Custom icon"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+            checkedIcon={<CheckBoxIcon fontSize="small" />}
+            name="checkedI"
+          />
+        }
+        label="Custom size"
+      />
+    </FormGroup>
+
+
+<FormGroup row>
+                    <Query query={gql(listSkills)}  >
+                      {({loading, data, error, subscribeToMore }) => {
+
+                        if (loading) return <p>loading...</p>
+                        if (error) return <p>{error.message}</p>
+
+                        return data.listSkills.items.map((skill) => {
+
+                          return (
+
+                            <div id={skill.id}>
+
+
+                            <FormControlLabel
+        control={<Checkbox checked={this.state.checkedA} onChange={this.checkboxHandleChange} name="checkedA" />}
+        label={<Typography >{skill.name}</Typography>}
+      />
+                            </div>
+                          )
+                        });
+                      }}
+                    </Query>
+    </FormGroup>
+
+
+            <button type="submit" className="modal-close waves-effect waves-red btn-flat">
+              Submit
+            </button>
+            <a className="modal-close waves-effect waves-red btn-flat">
+              Cancel
+            </a>
+                    </form>
+
+
+
+              
           </div>
         </div>
       </div>
@@ -117,4 +335,4 @@ class EditSkill extends React.Component {
   }
 }
 
-export default EditSkill;
+export default EditEmployee;

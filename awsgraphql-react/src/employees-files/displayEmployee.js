@@ -1,22 +1,23 @@
 import React from 'react'
 import { Query } from "react-apollo";
-import { listSkills } from '../graphql/queries';
-import { onCreateSkill } from '../graphql/subscriptions'
+import { listEmployees } from '../graphql/queries';
+import { onCreateEmployee } from '../graphql/subscriptions'
 import gql from 'graphql-tag';
-import Skill from './skill'
+import Employee from './employee'
 
-class DisplaySkills extends React.Component {
 
-  subscribeToNewSkills = (subscribeToMore) => {
+class DisplayEmployee extends React.Component {
+
+  subscribeToNewEmployees = (subscribeToMore) => {
     return subscribeToMore({
-      document: gql(onCreateSkill),
+      document: gql(onCreateEmployee),
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-          const newSkillData = subscriptionData.data.onCreateSkill;
+          const newSkillData = subscriptionData.data.onCreateEmployee;
           return Object.assign({}, prev, {
-            listSkills: {
-              ...prev.listSkills,
-              items: [...prev.listSkills.items, newSkillData]
+            listEmployees: {
+              ...prev.listEmployees,
+              items: [...prev.listEmployees.items, newSkillData]
             }
           })
         }
@@ -29,7 +30,7 @@ class DisplaySkills extends React.Component {
     return (
       <div className="row">
         
-        <Query query={gql(listSkills)}  >
+        <Query query={gql(listEmployees)}  >
 
           {({loading, data, error, subscribeToMore }) => {
 
@@ -37,8 +38,8 @@ class DisplaySkills extends React.Component {
             if (error) return <p>{error.message}</p>
 
 
-            return <Skill data={data} subscribeToMore={() =>
-                this.subscribeToNewSkills(subscribeToMore)} />
+            return <Employee data={data} subscribeToMore={() =>
+                this.subscribeToNewEmployees(subscribeToMore)} />
           }}
         </Query>
       </div>
@@ -46,4 +47,4 @@ class DisplaySkills extends React.Component {
   }
 }
 
-export default DisplaySkills;
+export default DisplayEmployee;

@@ -10,11 +10,7 @@ class CreateEmployee extends React.Component {
       variables: {
         input: {
           firstname: this.firstname.value,
-          lastname: this.lastname.value,
-          skills: [{
-              id: "0afbf050-494c-44a3-911d-97a385e03ecb",
-              name: "s"
-          }]
+          lastname: this.lastname.value
         }
       }
     }).then(res => {

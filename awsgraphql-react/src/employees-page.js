@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CreateEmployee from './employees-files/createEmployee';
-//import DisplaySkills from './employees-files/displayEmployee';
+import DisplayEmployee from './employees-files/displayEmployee';
 import './css/App.css';
 //import MaterialTableDemo from './test-table'; <MaterialTableDemo />
 
@@ -19,14 +19,14 @@ class EmployeesPage extends Component {
       </div>
       <div class="col s5">
 
-      <div class="col s12 blue-text"><h5>List of skills</h5></div>
+      <div class="col s12 blue-text"><h5>List of Employees</h5></div>
       
+      <DisplayEmployee />
       </div>
     </div>
       </div>
     );
   }
 }
-//<DisplaySkills />
 export default EmployeesPage;
 
