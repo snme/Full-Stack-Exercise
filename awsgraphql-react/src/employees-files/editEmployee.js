@@ -9,6 +9,9 @@ import gql from "graphql-tag";
 
 import { Query } from "react-apollo";
 import { listSkills } from '../graphql/queries';
+import { listEmployees } from '../graphql/queries';
+
+import { withApollo } from 'react-apollo';
 
 //
 
@@ -106,6 +109,7 @@ class EditEmployee extends React.Component {
     checkedA: true, 
     checkedB: true,
     checkedF: true,
+    checkboxes: []
   };
 
   handleSubmit = (e, updateEmployee) => {
@@ -152,7 +156,7 @@ class EditEmployee extends React.Component {
     console.log(this.state);
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const options = {
       onOpenStart: () => {
         console.log("Open Start");
@@ -174,6 +178,34 @@ class EditEmployee extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
+    console.log("hello! i'm une");
+    const { client } = this.props;
+    const resSkills = await client.query({ query: gql(listSkills) });
+    const resEmployees = await client.query({ query: gql(listEmployees) });
+    console.log(resSkills);
+    console.log(resEmployees);
+
+    const initialize = () => (
+      <Query query={gql(listSkills)}  >
+        {({loading, data, error, subscribeToMore }) => {
+          console.log("im in query");
+
+          if (loading) return <p>loading...</p>
+          if (error) return <p>{error.message}</p>
+          console.log(data.listSkills.items);
+
+          return data.listSkills.items.map((skill) => {
+
+            return (
+
+              <div id={skill.id}>
+              </div>
+            )
+          });
+        }}
+      </Query>
+    );
+    initialize();
   }
 
 
@@ -335,4 +367,8 @@ class EditEmployee extends React.Component {
   }
 }
 
-export default EditEmployee;
+export default withApollo(EditEmployee);
+
+
+
+

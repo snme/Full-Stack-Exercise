@@ -39,6 +39,44 @@ export const listSkills = /* GraphQL */ `
     }
   }
 `;
+
+export const listSkillsAndEmployees = /* GraphQL */ `
+  query ListSkillsAndEmployees(
+    $filter: ModelSkillFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        employees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    },
+    listEmployees(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        firstname
+        lastname
+        skills {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
+
+
+
 export const getEmployee = /* GraphQL */ `
   query GetEmployee($id: ID!) {
     getEmployee(id: $id) {
