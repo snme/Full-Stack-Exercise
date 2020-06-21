@@ -227,8 +227,10 @@ class EditEmployee extends React.Component {
     } 
     let j = 0;
       for (j = 0; j < empSkills.length; j++){
-        console.log(empSkills[j]);
+        if(empSkills[j].skill != null)
         curState.checkboxes[empSkills[j].skill.id] = true;
+        else
+          console.log(empSkills[j].skill);
       }
     this.setState(curState)
     console.log(this.state);
