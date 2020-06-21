@@ -12,11 +12,11 @@ class Footer extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col l6 s12">
-                <h5 class="white-text center">Created for BuildOps by Sathya Edamadaka</h5>
+                <h7 class="white-text center">Created for BuildOps by Sathya Edamadaka</h7>
                 <p className="grey-text text-lighten-4">Prioritized for reusability—can extend footer here.</p>
               </div>
               <div className="col l6 s12">
-                <h5 class="white-text center">Contact me through the following!</h5>
+                <h7 class="white-text center">Contact me through the following!</h7>
                 <p className="grey-text text-lighten-4">sathya@buildops.com</p>
               </div>
             </div>
