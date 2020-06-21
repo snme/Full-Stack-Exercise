@@ -64,6 +64,7 @@ export const deleteSkill = /* GraphQL */ `
     }
   }
 `;
+
 export const createEmployeeSkills = /* GraphQL */ `
   mutation CreateEmployeeSkills(
     $input: CreateEmployeeSkillsInput!

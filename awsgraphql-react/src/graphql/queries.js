@@ -40,6 +40,23 @@ export const listSkills = /* GraphQL */ `
   }
 `;
 
+export const getSkills = /* GraphQL */ `
+query GetSkills($id: ID!){
+  getEmployee($id: ID!){
+    firstname
+    lastname
+    skills{
+      items{
+        skill {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+`;
+
 
 export const getEmployee = /* GraphQL */ `
   query GetEmployee($id: ID!) {
@@ -64,6 +81,7 @@ export const getEmployee = /* GraphQL */ `
     }
   }
 `;
+
 export const listEmployees = /* GraphQL */ `
   query ListEmployees(
     $filter: ModelEmployeeFilterInput

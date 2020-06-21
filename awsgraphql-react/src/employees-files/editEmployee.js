@@ -4,6 +4,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import Typography from '@material-ui/core/Typography';
 
 import { updateEmployee } from "../graphql/mutations";
+import { createEmployeeSkills } from "../graphql/mutations";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -11,6 +12,7 @@ import { Query } from "react-apollo";
 import { listSkills } from '../graphql/queries';
 import { listEmployees } from '../graphql/queries';
 import { getEmployee } from '../graphql/queries';
+import { getSkills } from '../graphql/queries';
 
 import { withApollo } from 'react-apollo';
 
@@ -113,9 +115,10 @@ class EditEmployee extends React.Component {
     checkboxes: []
   };
 
-  handleSubmit = (e, updateEmployee) => {
+  handleNameSubmit = (e, updateEmployee) => {
 
     console.log("Successfully Submitted.");
+
     e.preventDefault();
     updateEmployee({
       variables: {
@@ -128,8 +131,23 @@ class EditEmployee extends React.Component {
     }).then(res => this.handleModal());
   };  
 
-  handleModal = () => {
+  handleSkillsSubmit = (e, createEmployeeSkills) => {
+
+    e.preventDefault();
+    createEmployeeSkills({
+      variables: {
+        input: {
+          employeeSkillsSkillId: "65ec6848-211d-4252-80d5-31de66ee82c2",
+          employeeSkillsEmployeeId: "2c5dd6f3-cba9-4881-8c9b-366d90cd54d3",
+        }
+      }
+    }).then(res => console.log(res));
+
     console.log("Successfully Submitted.");
+  };  
+
+  handleModal = () => {
+    console.log("closing");
   };
 
   handleItems = (items) => {
@@ -155,8 +173,11 @@ class EditEmployee extends React.Component {
   checkboxHandleChange = (event) => {
     let curState = this.state;
     curState.checkboxes[event.target.name] = !curState.checkboxes[event.target.name];
+    //curState.checkboxes[event.target.name]
+    //customID (employee)
     this.setState(curState);
     console.log(this.state);
+    //
   };
 
   componentDidMount = async () => {
@@ -187,8 +208,11 @@ class EditEmployee extends React.Component {
 
 
     const resEmployees = await client.query({ query: gql(getEmployee), variables: {id: this.customID} });
+    //const getskills = await client.query({ query: gql(getSkills), variables: {id: this.customID} });
+    //console.log(getSkills);
 
     console.log(this.state.employeeData.firstname);
+    console.log(this.customID);
     console.log(resSkills.data.listSkills.items);
     console.log(resEmployees);
     console.log(resEmployees.data.getEmployee.skills.items[0]);
@@ -243,7 +267,7 @@ class EditEmployee extends React.Component {
                 return (
                   <form
                     className="add-employee"
-                    onSubmit={e => this.handleSubmit(e, updateEmployee)}
+                    onSubmit={e => this.handleNameSubmit(e, updateEmployee)}
                   >
                     <input
                       type="text"
@@ -275,12 +299,15 @@ class EditEmployee extends React.Component {
               }}
             </Mutation>
 
-                <form
-                  className="add-employee"
-                  onSubmit={e => this.handleSubmit(e, updateEmployee)}
-                >
 
-
+<Mutation mutation={gql(createEmployeeSkills)}>
+              {createEmployeeSkills => {
+                return (
+                          
+                  <form
+                    className="add-employee"
+                    onSubmit={e => this.handleSkillsSubmit(e, createEmployeeSkills)}
+                  >        
 <FormGroup row>
 
 
@@ -307,16 +334,21 @@ class EditEmployee extends React.Component {
                         });
                       }}
                     </Query>
-    </FormGroup>
 
-
-            <button type="submit" className="modal-close waves-effect waves-red btn-flat">
+<button type="submit" className="modal-close waves-effect waves-red btn-flat">
               Submit
             </button>
             <a className="modal-close waves-effect waves-red btn-flat">
               Cancel
             </a>
-                    </form>
+    </FormGroup>
+    </form>
+);
+}}
+</Mutation>
+
+
+            
 
 
 
