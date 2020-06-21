@@ -9,6 +9,14 @@ export const createSkill = /* GraphQL */ `
     createSkill(input: $input, condition: $condition) {
       id
       name
+      employees {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -22,6 +30,14 @@ export const updateSkill = /* GraphQL */ `
     updateSkill(input: $input, condition: $condition) {
       id
       name
+      employees {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -35,6 +51,107 @@ export const deleteSkill = /* GraphQL */ `
     deleteSkill(input: $input, condition: $condition) {
       id
       name
+      employees {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEmployeeSkills = /* GraphQL */ `
+  mutation CreateEmployeeSkills(
+    $input: CreateEmployeeSkillsInput!
+    $condition: ModelEmployeeSkillsConditionInput
+  ) {
+    createEmployeeSkills(input: $input, condition: $condition) {
+      id
+      employee {
+        id
+        firstname
+        lastname
+        skills {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      skill {
+        id
+        name
+        employees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateEmployeeSkills = /* GraphQL */ `
+  mutation UpdateEmployeeSkills(
+    $input: UpdateEmployeeSkillsInput!
+    $condition: ModelEmployeeSkillsConditionInput
+  ) {
+    updateEmployeeSkills(input: $input, condition: $condition) {
+      id
+      employee {
+        id
+        firstname
+        lastname
+        skills {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      skill {
+        id
+        name
+        employees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteEmployeeSkills = /* GraphQL */ `
+  mutation DeleteEmployeeSkills(
+    $input: DeleteEmployeeSkillsInput!
+    $condition: ModelEmployeeSkillsConditionInput
+  ) {
+    deleteEmployeeSkills(input: $input, condition: $condition) {
+      id
+      employee {
+        id
+        firstname
+        lastname
+        skills {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      skill {
+        id
+        name
+        employees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -50,10 +167,12 @@ export const createEmployee = /* GraphQL */ `
       firstname
       lastname
       skills {
-        id
-        name
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -70,10 +189,12 @@ export const updateEmployee = /* GraphQL */ `
       firstname
       lastname
       skills {
-        id
-        name
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -90,10 +211,12 @@ export const deleteEmployee = /* GraphQL */ `
       firstname
       lastname
       skills {
-        id
-        name
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
