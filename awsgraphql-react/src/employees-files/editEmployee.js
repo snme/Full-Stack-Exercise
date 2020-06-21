@@ -10,6 +10,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { listSkills } from '../graphql/queries';
 import { listEmployees } from '../graphql/queries';
+import { getEmployee } from '../graphql/queries';
 
 import { withApollo } from 'react-apollo';
 
@@ -99,7 +100,7 @@ function CheckboxLabels(data) {
 
 
 class EditEmployee extends React.Component {
-  customID = "modal1 " + this.props.id;
+  customID = this.props.id;
 
   state = {
     employeeData: {
@@ -152,7 +153,9 @@ class EditEmployee extends React.Component {
   };
 
   checkboxHandleChange = (event) => {
-    this.setState({ ...this.state, [event.target.name]: event.target.checked });
+    let curState = this.state;
+    curState.checkboxes[event.target.name] = !curState.checkboxes[event.target.name];
+    this.setState(curState);
     console.log(this.state);
   };
 
@@ -178,19 +181,34 @@ class EditEmployee extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
-    console.log("hello! i'm une");
+
     const { client } = this.props;
     const resSkills = await client.query({ query: gql(listSkills) });
-    const resEmployees = await client.query({ query: gql(listEmployees) });
+
+
+    const resEmployees = await client.query({ query: gql(getEmployee), variables: {id: this.customID} });
+
+    console.log(this.state.employeeData.firstname);
     console.log(resSkills.data.listSkills.items);
     console.log(resEmployees);
+    console.log(resEmployees.data.getEmployee.skills.items[0]);
     //resSkills.data.listSkills.items
     let items = resSkills.data.listSkills.items;
+    let empSkills = resEmployees.data.getEmployee.skills.items;
+    console.log(empSkills);
     let index = 0;
+    let curState = this.state;
     for (index = 0; index < items.length; index++) { 
-      this.setState({ ...this.state, [items[index].id]: true });
+      curState.checkboxes[items[index].id] = false;
     } 
+    let j = 0;
+      for (j = 0; j < empSkills.length; j++){
+        console.log(empSkills[j]);
+        curState.checkboxes[empSkills[j].skill.id] = true;
+      }
+    this.setState(curState)
     console.log(this.state);
+
   }
 
 
@@ -262,53 +280,10 @@ class EditEmployee extends React.Component {
                   onSubmit={e => this.handleSubmit(e, updateEmployee)}
                 >
 
-                    <FormGroup row>
-      <FormControlLabel
-        control={<Checkbox checked={this.state.checkedA} onChange={this.checkboxHandleChange} name="checkedA" />}
-        label="Secondary"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={this.state.checkedB}
-            onChange={this.checkboxHandleChange}
-            name="checkedB"
-            color="primary"
-          />
-        }
-        label="Primary"
-      />
-      <FormControlLabel disabled control={<Checkbox name="checkedD" />} label="Disabled" />
-      <FormControlLabel disabled control={<Checkbox checked name="checkedE" />} label="Disabled" />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={this.state.checkedF}
-            onChange={this.checkboxHandleChange}
-            name="checkedF"
-            indeterminate
-          />
-        }
-        label="Indeterminate"
-      />
-      <FormControlLabel
-        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
-        label="Custom icon"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-            checkedIcon={<CheckBoxIcon fontSize="small" />}
-            name="checkedI"
-          />
-        }
-        label="Custom size"
-      />
-    </FormGroup>
-
 
 <FormGroup row>
+
+
                     <Query query={gql(listSkills)}  >
                       {({loading, data, error, subscribeToMore }) => {
 
@@ -316,6 +291,7 @@ class EditEmployee extends React.Component {
                         if (error) return <p>{error.message}</p>
 
                         return data.listSkills.items.map((skill) => {
+                          console.log(this.state.checkboxes[skill.id]);
 
                           return (
 
@@ -323,7 +299,7 @@ class EditEmployee extends React.Component {
 
 
                             <FormControlLabel
-        control={<Checkbox checked={this.state.checkedA} onChange={this.checkboxHandleChange} name="checkedA" />}
+        control={<Checkbox checked={this.state.checkboxes[skill.id] || false} onChange={this.checkboxHandleChange} name={skill.id} />}
         label={<Typography >{skill.name}</Typography>}
       />
                             </div>
