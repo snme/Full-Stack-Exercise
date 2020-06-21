@@ -182,30 +182,15 @@ class EditEmployee extends React.Component {
     const { client } = this.props;
     const resSkills = await client.query({ query: gql(listSkills) });
     const resEmployees = await client.query({ query: gql(listEmployees) });
-    console.log(resSkills);
+    console.log(resSkills.data.listSkills.items);
     console.log(resEmployees);
-
-    const initialize = () => (
-      <Query query={gql(listSkills)}  >
-        {({loading, data, error, subscribeToMore }) => {
-          console.log("im in query");
-
-          if (loading) return <p>loading...</p>
-          if (error) return <p>{error.message}</p>
-          console.log(data.listSkills.items);
-
-          return data.listSkills.items.map((skill) => {
-
-            return (
-
-              <div id={skill.id}>
-              </div>
-            )
-          });
-        }}
-      </Query>
-    );
-    initialize();
+    //resSkills.data.listSkills.items
+    let items = resSkills.data.listSkills.items;
+    let index = 0;
+    for (index = 0; index < items.length; index++) { 
+      this.setState({ ...this.state, [items[index].id]: true });
+    } 
+    console.log(this.state);
   }
 
 
