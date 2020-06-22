@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 import Typography from '@material-ui/core/Typography';
@@ -11,23 +11,15 @@ import gql from "graphql-tag";
 
 import { Query } from "react-apollo";
 import { listSkills } from '../graphql/queries';
-import { listEmployees } from '../graphql/queries';
 import { testThis } from '../graphql/queries';
 import { getEmployee } from '../graphql/queries';
 
 import { withApollo } from 'react-apollo';
 
-//
-
 //checkboxes
-import { withStyles } from '@material-ui/core/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 class EditEmployee extends React.Component {
   customID = this.props.id;
@@ -37,7 +29,8 @@ class EditEmployee extends React.Component {
       firstname: this.props.firstname,
       lastname: this.props.lastname,
     },
-    checkboxes: []
+    checkboxes: [], 
+    skills: []
   };
 
   oldCheck = [];
@@ -58,26 +51,30 @@ class EditEmployee extends React.Component {
     }).then(res => this.handleModal());
   };  
 
-  handleSkillsSubmit = (e, createEmployeeSkills) => {
+  handleSkillsSubmit = async (e, createEmployeeSkills) => {
 
     e.preventDefault();
 
     console.log("over here!");
     console.log(this.oldCheck);
     console.log(this.state.checkboxes);
+    console.log(this.state.checkboxes[this.state.skills[0]]);
     const { client } = this.props;
-    const other = client.mutate({ mutation: gql(createEmployee), variables: {input: {firstname: "goodbye", lastname: "bb"}} });
     
-    createEmployeeSkills({
-      variables: {
-        input: {
-          employeeSkillsSkillId: "6fd56660-4105-47a8-9d37-96f00eab7cb0",
-          employeeSkillsEmployeeId: "7d84825f-9746-41b2-9a6b-0dd3071298d1",
-        }
+    let i = 0;
+    for (i = 0;i < this.state.skills.length; i++){
+      if(this.state.checkboxes[this.state.skills[i]]){
+        const a = await client.mutate({ mutation: gql(createEmployeeSkills), 
+          variables: {input: {
+          employeeSkillsSkillId: this.state.skills[i],
+          employeeSkillsEmployeeId: this.customID,
+        }},
+      fetchPolicy: 'network-only' ,});
       }
-    }).then(res => console.log(res));
+    }
 
     console.log("Successfully Submitted.");
+    
   };  
 
   handleModal = () => {
@@ -110,7 +107,22 @@ class EditEmployee extends React.Component {
     //curState.checkboxes[event.target.name]
     //customID (employee)
     this.setState(curState);
+    if(curState.checkboxes[event.target.name]){
+      const { client } = this.props;
+      const a = client.mutate({ mutation: gql(createEmployeeSkills), 
+          variables: {input: {
+          employeeSkillsSkillId: event.target.name,
+          employeeSkillsEmployeeId: this.customID,
+        }},
+      fetchPolicy: 'no-cache' ,});
+    }
+    else{
+
+
+    }
+
     console.log(this.state);
+    console.log("changed state");
     //
   };
 
@@ -158,6 +170,7 @@ class EditEmployee extends React.Component {
     for (index = 0; index < items.length; index++) { 
       curState.checkboxes[items[index].id] = false;
       this.oldCheck[items[index].id] = false;
+      curState.skills.push(items[index].id);
     } 
     let j = 0;
       for (j = 0; j < empSkills.length; j++){
@@ -201,7 +214,7 @@ class EditEmployee extends React.Component {
                         modal-fixed-footer to the "modal" div*/}
           
           <div className="modal-content blue-text">
-            <h4>Modal Header</h4>
+            <h4>Edit Employee Name and Skills</h4>
 
 
             <Mutation mutation={gql(updateEmployee)}>
@@ -225,14 +238,16 @@ class EditEmployee extends React.Component {
                       onChange={this.handleLastName}
                     />
                     <div className="modal-footer">
-            <button type="submit" className="modal-close waves-effect waves-red btn-flat">
-              Submit
-            </button>
-            <a className="modal-close waves-effect waves-red btn-flat">
-              Cancel
-            </a>
-          </div>
-            
+                      <button type="submit" className="modal-close waves-effect waves-red btn-flat">
+                        Submit
+                      </button>
+                      <a className="modal-close waves-effect waves-red btn-flat">
+                        Cancel
+                      </a>
+
+                  <p>Select associated skills here.</p>
+                    </div>
+                    
                   </form>
 
 
@@ -242,15 +257,15 @@ class EditEmployee extends React.Component {
             </Mutation>
 
 
-<Mutation mutation={gql(createEmployeeSkills)}>
+            <Mutation mutation={gql(createEmployeeSkills)}>
               {createEmployeeSkills => {
                 return (
                           
                   <form
-                    className="add-employee"
+                    className="add-skills"
                     onSubmit={e => this.handleSkillsSubmit(e, createEmployeeSkills)}
                   >        
-<FormGroup row>
+                  <FormGroup row>
 
 
                     <Query query={gql(listSkills)}  >
@@ -266,33 +281,23 @@ class EditEmployee extends React.Component {
 
 
                             <FormControlLabel
-        control={<Checkbox checked={this.state.checkboxes[skill.id] || false} onChange={this.checkboxHandleChange} name={skill.id} />}
-        label={<Typography >{skill.name}</Typography>}
-      />
+                              control={<Checkbox checked={this.state.checkboxes[skill.id] || false} onChange={this.checkboxHandleChange} name={skill.id} />}
+                              label={<Typography >{skill.name}</Typography>}
+                            />
                             </div>
                           )
                         });
                       }}
                     </Query>
 
-<button type="submit" className="modal-close waves-effect waves-red btn-flat">
-              Submit
-            </button>
-            <a className="modal-close waves-effect waves-red btn-flat">
-              Cancel
-            </a>
-    </FormGroup>
-    </form>
-);
-}}
-</Mutation>
-
-
-            
-
-
-
-              
+                                <a className="modal-close waves-effect waves-red btn-flat">
+                                  Cancel
+                                </a>
+                        </FormGroup>
+                        </form>
+                    );
+                    }}
+                    </Mutation>    
           </div>
         </div>
       </div>

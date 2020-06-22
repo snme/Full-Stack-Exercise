@@ -19,7 +19,7 @@ class SkillsPage extends Component {
       </div>
       <div class="col s5">
 
-      <div class="col s12 blue-text"><h5>List of skills</h5></div>
+      <div class="col s12 blue-text"><h5>Edit Skills</h5></div>
       <DisplaySkills />
       </div>
     </div>

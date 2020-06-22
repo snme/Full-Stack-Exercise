@@ -19,7 +19,7 @@ class EmployeesPage extends Component {
       </div>
       <div class="col s5">
 
-      <div class="col s12 blue-text"><h5>List of Employees</h5></div>
+      <div class="col s12 blue-text"><h5>Edit Employees and Add Skills</h5></div>
       
       <DisplayEmployee />
       </div>

@@ -83,7 +83,7 @@ class EditSkill extends React.Component {
                         modal-fixed-footer to the "modal" div*/}
           
           <div className="modal-content blue-text">
-            <h4>Modal Header</h4>
+            <h4>Edit Skill</h4>
             <Mutation mutation={gql(updateSkill)}>
               {updateSkill => {
                 return (

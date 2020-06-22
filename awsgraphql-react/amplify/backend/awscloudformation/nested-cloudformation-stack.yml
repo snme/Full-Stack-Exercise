@@ -74,11 +74,18 @@
 				"TemplateURL": "https://s3.amazonaws.com/amplify-fullstackexercise-dev-14115-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"CreateAPIKey": 1,
-					"AppSyncApiName": "fullstackexercise",
-					"DynamoDBBillingMode": "PAY_PER_REQUEST",
-					"DynamoDBEnableServerSideEncryption": "false",
 					"S3DeploymentBucket": "amplify-fullstackexercise-dev-14115-deployment",
-					"S3DeploymentRootKey": "amplify-appsync-files/4f338fe21180ddc090a1699f8627ce0a3b588d6f",
+					"S3DeploymentRootKey": "amplify-appsync-files/d51ecf72226f6ac0fd8306d9912501a71bb109cc",
+					"env": "dev"
+				}
+			}
+		},
+		"hostingS3AndCloudFront": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-fullstackexercise-dev-14115-deployment/amplify-cfn-templates/hosting/template.json",
+				"Parameters": {
+					"bucketName": "ulltackxercise-20200622122909-hostingbucket",
 					"env": "dev"
 				}
 			}
