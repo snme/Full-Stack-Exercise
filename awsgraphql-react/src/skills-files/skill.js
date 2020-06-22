@@ -3,7 +3,6 @@ import EditSkill from './editSkill';
 import DeleteSkill from './deleteSkill';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,6 +18,7 @@ class Skill extends React.Component {
   render() {
     console.log(this.props);
     const items = this.props.data.listSkills.items;
+    //classes included for future use with Grid
     const classes = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -30,42 +30,30 @@ class Skill extends React.Component {
   },
 }));
 
-    /*var newarr = (function(arr){
-      var m = {}, newarr = []
-      for (var i=0; i<items.length; i++) {
-        var v = items[i];
-        if (!m[v.name]) {
-          newarr.push(v);
-          m[v.name]=true;
-        }
-      }
-      return newarr;
-    })(items);
-    return newarr.map((skill) => {*/
     return items.map((skill) => {
       return (
         <div style={{ padding: 20}}>
         <Grid container justify="center" spacing={5}>
-  <Grid container item justify="center" xs={6} spacing={0}>
-  <Typography ><h5>{skill.name}</h5> </Typography>
-    <div className="col s12"> 
-    <h6>
-          Created on <time dateTime={skill.createdAt}>
-          {new Date(skill.createdAt).toDateString()}</time></h6>
-    </div>
-    
-  </Grid>
-  <Grid container item xs >
-    <div className="col s12 "> </div>
+          <Grid container item justify="center" xs={6} spacing={0}>
+          <Typography ><h5>{skill.name}</h5> </Typography>
+            <div className="col s12"> 
+            <h6>
+                  Created on <time dateTime={skill.createdAt}>
+                  {new Date(skill.createdAt).toDateString()}</time></h6>
+            </div>
+            
+          </Grid>
+          <Grid container item xs >
+            <div className="col s12 "> </div>
 
-    <EditSkill {...skill} />
-  </Grid>
-  <Grid container item xs>
+            <EditSkill {...skill} />
+          </Grid>
+          <Grid container item xs>
 
-    <div className="col s12 "> </div>
-    <DeleteSkill {...skill} />
-  </Grid>
-</Grid>
+            <div className="col s12 "> </div>
+            <DeleteSkill {...skill} />
+          </Grid>
+        </Grid>
 
         </div>
       )

@@ -39,6 +39,7 @@ ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
 ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
+
 export default function MaterialTableDemo() {
   const [state, setState] = React.useState({
     columns: [

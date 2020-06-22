@@ -3,11 +3,7 @@ import React from "react";
 class Footer extends React.Component {
   render() {
     return (
-
       <div className="row">
-
-
-
 <footer className="page-footer blue" bottom="0">
           <div className="container">
             <div className="row">

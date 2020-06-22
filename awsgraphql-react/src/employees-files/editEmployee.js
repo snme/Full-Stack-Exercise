@@ -2,18 +2,13 @@ import React from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 import Typography from '@material-ui/core/Typography';
-
 import { updateEmployee } from "../graphql/mutations";
-import { createEmployee } from "../graphql/mutations";
 import { createEmployeeSkills } from "../graphql/mutations";
+import { listSkills } from '../graphql/queries';
+import { getEmployee } from '../graphql/queries';
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-
 import { Query } from "react-apollo";
-import { listSkills } from '../graphql/queries';
-import { testThis } from '../graphql/queries';
-import { getEmployee } from '../graphql/queries';
-
 import { withApollo } from 'react-apollo';
 
 //checkboxes
@@ -36,9 +31,6 @@ class EditEmployee extends React.Component {
   oldCheck = [];
 
   handleNameSubmit = (e, updateEmployee) => {
-
-    console.log("Successfully Submitted.");
-
     e.preventDefault();
     updateEmployee({
       variables: {
@@ -51,16 +43,12 @@ class EditEmployee extends React.Component {
     }).then(res => this.handleModal());
   };  
 
+  //Alternative to checkboxHandleChange; submits all Employee-Skill mutations at once
+  //instead of 1 checkbox at a time. To implement, add a submit button to the 
+  //checkbox forms. (included for possible future use).
   handleSkillsSubmit = async (e, createEmployeeSkills) => {
-
     e.preventDefault();
-
-    console.log("over here!");
-    console.log(this.oldCheck);
-    console.log(this.state.checkboxes);
-    console.log(this.state.checkboxes[this.state.skills[0]]);
     const { client } = this.props;
-    
     let i = 0;
     for (i = 0;i < this.state.skills.length; i++){
       if(this.state.checkboxes[this.state.skills[i]]){
@@ -72,22 +60,10 @@ class EditEmployee extends React.Component {
       fetchPolicy: 'network-only' ,});
       }
     }
-
-    console.log("Successfully Submitted.");
-    
   };  
 
   handleModal = () => {
-    console.log("closing");
-  };
-
-  handleItems = (items) => {
-    let index = 0;
-    for (index = 0; index < items.length; index++) { 
-      this.setState({ ...this.state, [items[index].id]: true });
-    } 
-    //this.setState({ ...this.state, [id]: true });
-    console.log("here");
+    console.log("closing operation"); //closing actions here
   };
 
   handleFirstName = e => {
@@ -95,17 +71,17 @@ class EditEmployee extends React.Component {
       employeeData: { firstname: e.target.value }
     });
   };
+
   handleLastName = e => {
     this.setState({
       employeeData: { lastname: e.target.value }
     });
   };
 
+  //changes elem
   checkboxHandleChange = (event) => {
     let curState = this.state;
     curState.checkboxes[event.target.name] = !curState.checkboxes[event.target.name];
-    //curState.checkboxes[event.target.name]
-    //customID (employee)
     this.setState(curState);
     if(curState.checkboxes[event.target.name]){
       const { client } = this.props;
@@ -117,16 +93,14 @@ class EditEmployee extends React.Component {
       fetchPolicy: 'no-cache' ,});
     }
     else{
-
-
+      //TODO: implement deletion mutation
     }
-
-    console.log(this.state);
-    console.log("changed state");
-    //
   };
 
   componentDidMount = async () => {
+    //used these fields for debugging; can also shift
+    //all of the logic from lines 128+ to within
+    //onOpenStart.
     const options = {
       onOpenStart: () => {
         console.log("Open Start");
@@ -152,19 +126,12 @@ class EditEmployee extends React.Component {
     const { client } = this.props;
     const resSkills = await client.query({ query: gql(listSkills) });
 
-    console.log("trying new custom");
     const resEmployees = await client.query({ query: gql(getEmployee), fetchPolicy: 'network-only', variables: {id: this.customID} })
-    const custom = await client.query({ query: gql(testThis), fetchPolicy: 'network-only'});
+    //const custom = await client.query({ query: gql(testThis), fetchPolicy: 'network-only'});
 
-    console.log(custom);
+    const items = resSkills.data.listSkills.items;
+    const empSkills = resEmployees.data.getEmployee.skills.items;
 
-    console.log(this.state.employeeData.firstname);
-    console.log(this.customID);
-    console.log(await resEmployees);
-    //resSkills.data.listSkills.items
-    let items = resSkills.data.listSkills.items;
-    let empSkills = resEmployees.data.getEmployee.skills.items;
-    console.log(empSkills);
     let index = 0;
     let curState = this.state;
     for (index = 0; index < items.length; index++) { 
@@ -182,13 +149,7 @@ class EditEmployee extends React.Component {
           console.log(empSkills[j].skill);
       }
     this.setState(curState)
-    console.log("first oldcheck");
-    console.log(this.oldCheck);
-    console.log(this.state);
-
   }
-
-
 
   render() {
     return (
@@ -244,14 +205,9 @@ class EditEmployee extends React.Component {
                       <a className="modal-close waves-effect waves-red btn-flat">
                         Cancel
                       </a>
-
                   <p>Select associated skills here.</p>
                     </div>
-                    
                   </form>
-
-
-
                 );
               }}
             </Mutation>
@@ -268,36 +224,36 @@ class EditEmployee extends React.Component {
                   <FormGroup row>
 
 
-                    <Query query={gql(listSkills)}  >
-                      {({loading, data, error, subscribeToMore }) => {
+                  <Query query={gql(listSkills)}  >
+                    {({loading, data, error, subscribeToMore }) => {
 
-                        if (loading) return <p>loading...</p>
-                        if (error) return <p>{error.message}</p>
+                      if (loading) return <p>loading...</p>
+                      if (error) return <p>{error.message}</p>
 
-                        return data.listSkills.items.map((skill) => {
-                          return (
+                      return data.listSkills.items.map((skill) => {
+                        return (
 
-                            <div id={skill.id}>
+                          <div id={skill.id}>
 
 
-                            <FormControlLabel
-                              control={<Checkbox checked={this.state.checkboxes[skill.id] || false} onChange={this.checkboxHandleChange} name={skill.id} />}
-                              label={<Typography >{skill.name}</Typography>}
-                            />
-                            </div>
-                          )
-                        });
-                      }}
-                    </Query>
+                          <FormControlLabel
+                            control={<Checkbox checked={this.state.checkboxes[skill.id] || false} onChange={this.checkboxHandleChange} name={skill.id} />}
+                            label={<Typography >{skill.name}</Typography>}
 
-                                <a className="modal-close waves-effect waves-red btn-flat">
-                                  Cancel
-                                </a>
-                        </FormGroup>
-                        </form>
-                    );
+                           />
+                          </div>
+                        )
+                      });
                     }}
-                    </Mutation>    
+                  </Query>
+                  <a className="modal-close waves-effect waves-red btn-flat">
+                   Cancel
+                 </a>
+               </FormGroup>
+                </form>
+                );
+                }}
+              </Mutation>    
           </div>
         </div>
       </div>

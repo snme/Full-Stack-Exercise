@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Mutation } from 'react-apollo';
 import { deleteSkill } from '../graphql/mutations';
 import gql from 'graphql-tag';
 import { listSkills } from '../graphql/queries';
 
 
-class DeleteSkill extends Component {
+class DeleteSkill extends React.Component {
     elementID = this.props.id;
     elementName = this.props.name;
 
@@ -37,10 +37,6 @@ class DeleteSkill extends Component {
                     ...data.listSkills.items.filter(item =>
                      item.id !== this.elementID)
                 ];
-                //item.id !== this.elementID && item.name != this.elementName)
-                console.log("hello");
-                console.log(data);
-
 
                 //Overwrite the cache with the new results
                 cache.writeQuery({ query, data });

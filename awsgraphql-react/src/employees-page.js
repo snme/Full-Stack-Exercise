@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CreateEmployee from './employees-files/createEmployee';
 import DisplayEmployee from './employees-files/displayEmployee';
 import './css/App.css';
-//import MaterialTableDemo from './test-table'; <MaterialTableDemo />
 
-
-class EmployeesPage extends Component {
+class EmployeesPage extends React.Component {
   render() {
     return (
       <div className="EmployeesPage">
-        <div className=" blue-text"><h4>Maintain Employees</h4></div>
+        <div className=" blue-text" ><h4>Maintain Employees</h4></div>
       <div class="row" justify="center">
       <div class="col s1"></div>
       <div class="col s5">

@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Mutation } from 'react-apollo';
 import { deleteEmployee } from '../graphql/mutations';
 import gql from 'graphql-tag';
 import { listEmployees } from '../graphql/queries';
 
 
-class DeleteEmployee extends Component {
+class DeleteEmployee extends React.Component {
     elementID = this.props.id;
-    //elementName = this.props.name;
 
     handleDelete = (deleteEmployee) => {
         deleteEmployee({
@@ -18,8 +17,6 @@ class DeleteEmployee extends Component {
             },
             optimisticResponse: () => ({
                 deleteEmployee: {
-                    // This type must match the return type of
-                    //the query below (listEmployees)
                     __typename: 'ModelPostConnection',
                     id: this.props.id,
                     firstname: this.props.name,
@@ -39,10 +36,6 @@ class DeleteEmployee extends Component {
                      item.id !== this.elementID)
                 ];
                 //item.id !== this.elementID && item.name != this.elementName)
-                console.log("hello");
-                console.log(data);
-
-
                 //Overwrite the cache with the new results
                 cache.writeQuery({ query, data });
             }
