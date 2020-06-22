@@ -13,7 +13,7 @@ class CreateSkill extends React.Component {
         }
       }
     }).then(res => {
-      this.skill.value = "";
+      console.log("submitted skill");
     });
   };
   render() {

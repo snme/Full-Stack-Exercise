@@ -141,9 +141,8 @@ class EditEmployee extends React.Component {
     const resSkills = await client.query({ query: gql(listSkills) });
 
     console.log("trying new custom");
-    const resEmployees = await client.query({ query: gql(getEmployee), variables: {id: this.customID} })
-    const custom = await client.query({ query: gql(testThis),
-    fetchPolicy: 'network-only'});
+    const resEmployees = await client.query({ query: gql(getEmployee), fetchPolicy: 'network-only', variables: {id: this.customID} })
+    const custom = await client.query({ query: gql(testThis), fetchPolicy: 'network-only'});
 
     console.log(custom);
 

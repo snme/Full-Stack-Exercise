@@ -3,13 +3,13 @@ import { Query } from "react-apollo";
 import { listSkills } from '../graphql/queries';
 import { onCreateSkill } from '../graphql/subscriptions'
 import gql from 'graphql-tag';
-import Skill from './skill'
+import Skill from './skill';
 
 class DisplaySkills extends React.Component {
 
   subscribeToNewSkills = (subscribeToMore) => {
     return subscribeToMore({
-      document: gql(onCreateSkill),
+      document: gql(onCreateSkill), fetchPolicy: 'network-only',
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
           const newSkillData = subscriptionData.data.onCreateSkill;
