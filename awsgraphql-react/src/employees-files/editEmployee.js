@@ -4,6 +4,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import Typography from '@material-ui/core/Typography';
 
 import { updateEmployee } from "../graphql/mutations";
+import { createEmployee } from "../graphql/mutations";
 import { createEmployeeSkills } from "../graphql/mutations";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
@@ -28,8 +29,6 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-
-
 class EditEmployee extends React.Component {
   customID = this.props.id;
 
@@ -40,6 +39,8 @@ class EditEmployee extends React.Component {
     },
     checkboxes: []
   };
+
+  oldCheck = [];
 
   handleNameSubmit = (e, updateEmployee) => {
 
@@ -60,6 +61,13 @@ class EditEmployee extends React.Component {
   handleSkillsSubmit = (e, createEmployeeSkills) => {
 
     e.preventDefault();
+
+    console.log("over here!");
+    console.log(this.oldCheck);
+    console.log(this.state.checkboxes);
+    const { client } = this.props;
+    const other = client.mutate({ mutation: gql(createEmployee), variables: {input: {firstname: "goodbye", lastname: "bb"}} });
+    
     createEmployeeSkills({
       variables: {
         input: {
@@ -132,15 +140,16 @@ class EditEmployee extends React.Component {
     const { client } = this.props;
     const resSkills = await client.query({ query: gql(listSkills) });
 
+    console.log("trying new custom");
+    const resEmployees = await client.query({ query: gql(getEmployee), variables: {id: this.customID} })
+    const custom = await client.query({ query: gql(testThis),
+    fetchPolicy: 'network-only'});
 
-    const resEmployees = await client.query({ query: gql(getEmployee), variables: {id: this.customID} });
-    const custom = await client.query({ query: gql(testThis)});
-    console.log(await custom);
+    console.log(custom);
 
     console.log(this.state.employeeData.firstname);
     console.log(this.customID);
     console.log(await resEmployees);
-    console.log(await resEmployees.data.getEmployee.skills.items[0]);
     //resSkills.data.listSkills.items
     let items = resSkills.data.listSkills.items;
     let empSkills = resEmployees.data.getEmployee.skills.items;
@@ -149,15 +158,20 @@ class EditEmployee extends React.Component {
     let curState = this.state;
     for (index = 0; index < items.length; index++) { 
       curState.checkboxes[items[index].id] = false;
+      this.oldCheck[items[index].id] = false;
     } 
     let j = 0;
       for (j = 0; j < empSkills.length; j++){
-        if(empSkills[j].skill != null)
+        if(empSkills[j].skill != null){
         curState.checkboxes[empSkills[j].skill.id] = true;
+        this.oldCheck[empSkills[j].skill.id] = true;
+      }
         else
           console.log(empSkills[j].skill);
       }
     this.setState(curState)
+    console.log("first oldcheck");
+    console.log(this.oldCheck);
     console.log(this.state);
 
   }
@@ -247,8 +261,6 @@ class EditEmployee extends React.Component {
                         if (error) return <p>{error.message}</p>
 
                         return data.listSkills.items.map((skill) => {
-                          console.log(this.state.checkboxes[skill.id]);
-
                           return (
 
                             <div id={skill.id}>

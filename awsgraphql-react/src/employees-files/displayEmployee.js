@@ -64,19 +64,6 @@ class DisplayEmployee extends React.Component {
           }}
         </Query>
 
-
-            <Query query={gql(testThis)}  >
-
-              {({loading, data, error, subscribeToMore }) => {
-
-                if (loading) return <p>loading...</p>
-                if (error) return <p>{error.message}</p>
-                console.log(data);
-
-                return <h1>i tried</h1>
-              }}
-            </Query>
-            
       </div>
     )
   }

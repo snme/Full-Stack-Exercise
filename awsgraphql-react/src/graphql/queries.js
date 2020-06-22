@@ -66,7 +66,7 @@ export const getEmployee = /* GraphQL */ `
 
 export const testThis = `
 query GetSkills{
-  getEmployee(id: "6aef1d48-3e0d-4b05-88b9-c1c72d70fb0e"){
+  getEmployee(id: "6f203fd0-e149-4049-8ae0-21d9fdfd9085"){
     id
     firstname 
     lastname
