@@ -18,7 +18,7 @@
     "graphql": "^0.11.7",
     "graphql-tag": "^2.10.3",
     "install-peers": "^1.0.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-table": "^1.61.0",
     "materialize-css": "^1.0.0",
     "react": "^16.13.1",
